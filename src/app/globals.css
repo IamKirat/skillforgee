@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --surface-hover: #f1f5f9;
+  --foreground: #0a0a0a;
+  --muted-foreground: #6b7280;
+  --border: #e5e7eb;
+  --card-bg: #ffffff;
+  --primary: #635bff;
+  --primary-hover: #5346e0;
+  --primary-light: rgba(99, 91, 255, 0.08);
+  --success: #10b981;
+  --success-light: rgba(16, 185, 129, 0.1);
+  --warning: #f59e0b;
+}
+
+.dark {
+  --background: #090d16;
+  --surface: #0f172a;
+  --surface-hover: #1e293b;
+  --foreground: #f8fafc;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+  --card-bg: #0f172a;
+  --primary: #635bff;
+  --primary-hover: #7b74ff;
+  --primary-light: rgba(99, 91, 255, 0.15);
+  --success: #10b981;
+  --success-light: rgba(16, 185, 129, 0.2);
+  --warning: #f59e0b;
+}
+
+/* Smooth 300ms transition for theme switching */
+html,
+body,
+header,
+nav,
+main,
+aside,
+footer,
+section,
+div,
+button,
+a,
+input,
+select,
+textarea,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+svg {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Dark mode theme token mapping */
+.dark body {
+  background-color: #090d16 !important;
+  color: #f8fafc !important;
+}
+
+.dark .bg-white {
+  background-color: #0f172a !important;
+}
+
+.dark .bg-\[\#F8FAFC\] {
+  background-color: #090d16 !important;
+}
+
+.dark .bg-\[\#F1F5F9\] {
+  background-color: #1e293b !important;
+}
+
+.dark .text-\[\#0A0A0A\] {
+  color: #f8fafc !important;
+}
+
+.dark .text-\[\#374151\],
+.dark .text-\[\#4B5563\] {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-\[\#6B7280\] {
+  color: #94a3b8 !important;
+}
+
+.dark .text-\[\#9CA3AF\] {
+  color: #64748b !important;
+}
+
+.dark .border-\[\#E5E7EB\] {
+  border-color: #1e293b !important;
+}
+
+.dark .border-\[\#E2E8F0\] {
+  border-color: #334155 !important;
+}
+
+.dark .border-\[\#F1F5F9\] {
+  border-color: #1e293b !important;
+}
+
+.dark .bg-white\/90 {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+.dark .bg-white\/70 {
+  background-color: rgba(15, 23, 42, 0.75) !important;
+}
+
+.dark .shadow-subtle {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dark .shadow-card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.dark .shadow-floating {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Subtle Stripe-style micro grid background */
+.bg-subtle-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+.dark .bg-subtle-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Stripe-inspired atmospheric top wash */
+.bg-stripe-mesh {
+  background: radial-gradient(circle at 50% -10%, rgba(99, 91, 255, 0.06) 0%, transparent 60%);
+}
+
+.dark .bg-stripe-mesh {
+  background: radial-gradient(circle at 50% -10%, rgba(99, 91, 255, 0.15) 0%, transparent 60%);
+}
+
+/* Custom minimal scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #090d16;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
