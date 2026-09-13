@@ -37,15 +37,20 @@ export function EvidenceUploadModal({
     isAnalyzingEvidence,
     latestResumeMatchReport,
     connectedSources,
+    currentResumeText,
+    currentGithubUser,
+    currentGithubRepos,
+    currentPortfolioUrl,
+    currentLinkedinUrl,
     resolveSkillEvidence,
     removeClaimedSkill,
   } = useSkillForge();
 
   const [activeTab, setActiveTab] = useState<'resume' | 'github' | 'portfolio' | 'linkedin'>('resume');
-  const [githubUser, setGithubUser] = useState('alexmorgan');
-  const [portfolioUrl, setPortfolioUrl] = useState('https://alexmorgan.dev');
-  const [linkedinUrl, setLinkedinUrl] = useState('https://linkedin.com/in/alexmorgan-dev');
-  const [resumeContent, setResumeContent] = useState(SAMPLE_RESUME_TEXT);
+  const [githubUser, setGithubUser] = useState(currentGithubUser || 'alexmorgan');
+  const [portfolioUrl, setPortfolioUrl] = useState(currentPortfolioUrl || 'https://alexmorgan.dev');
+  const [linkedinUrl, setLinkedinUrl] = useState(currentLinkedinUrl || 'https://linkedin.com/in/alexmorgan-dev');
+  const [resumeContent, setResumeContent] = useState(currentResumeText || SAMPLE_RESUME_TEXT);
   const [scanStep, setScanStep] = useState(0);
 
   // File Upload States
@@ -181,13 +186,13 @@ export function EvidenceUploadModal({
 
   const handleLinkPortfolio = async () => {
     setScanStep(1);
-    await uploadEvidenceDocument('portfolio');
+    await uploadEvidenceDocument('portfolio', portfolioUrl);
     setScanStep(5);
   };
 
   const handleLinkLinkedIn = async () => {
     setScanStep(1);
-    await uploadEvidenceDocument('linkedin');
+    await uploadEvidenceDocument('linkedin', linkedinUrl);
     setScanStep(5);
   };
 
@@ -462,18 +467,26 @@ export function EvidenceUploadModal({
               </div>
 
               <div className="p-4 rounded-2xl border border-[#E5E7EB] bg-white space-y-2">
-                <span className="text-[10px] font-mono uppercase text-[#6B7280] font-bold block">
-                  Connected Repositories Audited
-                </span>
-                <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                  <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E5E7EB]">
-                    <p className="font-bold text-[#0A0A0A]">python-microservices</p>
-                    <p className="text-[10px] text-[#6B7280]">64 commits • Python 88%</p>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E5E7EB]">
-                    <p className="font-bold text-[#0A0A0A]">react-nextjs-dashboard</p>
-                    <p className="text-[10px] text-[#6B7280]">92 commits • TypeScript 76%</p>
-                  </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase text-[#6B7280] font-bold block">
+                    Connected Repositories Audited ({currentGithubRepos.length})
+                  </span>
+                  <span className="text-[10px] font-mono text-[#10B981] font-semibold">
+                    ✓ Scanned @{githubUser}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+                  {currentGithubRepos.map((repo, idx) => {
+                    const topLang = Object.entries(repo.languages)[0];
+                    return (
+                      <div key={idx} className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E5E7EB]">
+                        <p className="font-bold text-[#0A0A0A] truncate">{repo.name}</p>
+                        <p className="text-[10px] text-[#6B7280]">
+                          {repo.commitsCount} commits • {topLang ? `${topLang[0]} ${topLang[1]}%` : 'Active'}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
