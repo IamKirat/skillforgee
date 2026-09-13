@@ -21,7 +21,6 @@ import {
 import { useSkillForge } from '@/lib/store';
 import { ThemeToggle } from './ThemeToggle';
 import { DemoModal } from './DemoModal';
-import { SupabaseStatusBadge } from './SupabaseStatusBadge';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
@@ -277,9 +276,6 @@ export const Navbar: React.FC = () => {
 
         {/* Right Corner: Prominent "Explore Demo", Theme Toggle & User Profile */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Supabase MCP Live Status Indicator */}
-          <SupabaseStatusBadge />
-
           {/* Prominent Explore Demo Button (Primary Conversion Driver) */}
           <button
             type="button"

@@ -41,7 +41,6 @@ import { VerificationBadge } from '@/components/VerificationBadge';
 import { EvidenceAuditModal } from '@/components/EvidenceAuditModal';
 import { EvidenceUploadModal } from '@/components/EvidenceUploadModal';
 import { ResumeMatchAuditModal } from '@/components/ResumeMatchAuditModal';
-import { SupabaseStatusBadge } from '@/components/SupabaseStatusBadge';
 import {
   getSkillEvidenceReport,
   SkillEvidenceReport,
@@ -181,7 +180,6 @@ export default function DashboardPage() {
                   <span className="text-[#6B7280]">•</span>
                   <span className="font-mono text-[#0A0A0A]">Powered by Resume-Match</span>
                 </div>
-                <SupabaseStatusBadge />
               </div>
 
               <h1 className="text-3xl sm:text-4xl font-bold text-[#0A0A0A] tracking-tight">

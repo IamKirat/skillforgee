@@ -20,10 +20,10 @@ import {
   Flame,
   ArrowLeft,
 } from 'lucide-react';
-import { GoogleIcon, GithubIcon, MicrosoftIcon } from '@/components/Icons';
+import { GoogleIcon } from '@/components/Icons';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useSkillForge } from '@/lib/store';
-import { signInWithSupabase, signUpWithSupabase } from '@/lib/supabaseService';
+import { signInWithSupabase, signUpWithSupabase, signInWithGoogleOAuth } from '@/lib/supabaseService';
 
 type AuthTab = 'login' | 'signup' | 'forgot';
 type UserRole = 'Candidate' | 'Recruiter' | 'Hackathon Organizer' | 'Startup Founder';
@@ -159,6 +159,27 @@ function LoginContent() {
       setForgotSubmitted(true);
       showToast('Password reset link sent to your email.');
     }, 500);
+  };
+
+  // Google OAuth Auth Handler
+  const handleGoogleAuth = async () => {
+    setIsLoading(true);
+    setValidationError('');
+    try {
+      const { data, error } = await signInWithGoogleOAuth();
+      if (error) {
+        // Fallback to seamless demo session if provider isn't enabled in Supabase cloud dashboard
+        handleDemoLogin('candidate');
+        return;
+      }
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        handleDemoLogin('candidate');
+      }
+    } catch {
+      handleDemoLogin('candidate');
+    }
   };
 
   // 1-Click Demo Login Handlers
@@ -363,36 +384,16 @@ function LoginContent() {
           {/* ========================================================= */}
           {authMode === 'login' && (
             <div className="space-y-5">
-              {/* Social Auth Buttons */}
-              <div className="grid grid-cols-3 gap-2.5">
+              {/* Google OAuth Button */}
+              <div>
                 <button
                   type="button"
-                  onClick={() => handleDemoLogin('candidate')}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
+                  onClick={handleGoogleAuth}
+                  className="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs sm:text-sm font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
                   title="Continue with Google"
                 >
-                  <GoogleIcon size={16} />
-                  <span className="hidden sm:inline">Google</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleDemoLogin('candidate')}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
-                  title="Continue with GitHub"
-                >
-                  <GithubIcon size={16} />
-                  <span className="hidden sm:inline">GitHub</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleDemoLogin('candidate')}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
-                  title="Continue with Microsoft"
-                >
-                  <MicrosoftIcon size={16} />
-                  <span className="hidden sm:inline">Microsoft</span>
+                  <GoogleIcon size={18} />
+                  <span>Continue with Google</span>
                 </button>
               </div>
 
@@ -604,31 +605,16 @@ function LoginContent() {
           {/* ========================================================= */}
           {authMode === 'signup' && (
             <div className="space-y-4">
-              {/* Social Signup */}
-              <div className="grid grid-cols-3 gap-2.5">
+              {/* Google OAuth Button */}
+              <div>
                 <button
                   type="button"
-                  onClick={() => handleDemoLogin('candidate')}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
+                  onClick={handleGoogleAuth}
+                  className="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs sm:text-sm font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
+                  title="Sign up with Google"
                 >
-                  <GoogleIcon size={16} />
-                  <span className="hidden sm:inline">Google</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDemoLogin('candidate')}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
-                >
-                  <GithubIcon size={16} />
-                  <span className="hidden sm:inline">GitHub</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDemoLogin('candidate')}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#0F172A] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] shadow-2xs hover:shadow-subtle transition-all cursor-pointer text-xs font-semibold text-[#0A0A0A] dark:text-[#F8FAFC]"
-                >
-                  <MicrosoftIcon size={16} />
-                  <span className="hidden sm:inline">Microsoft</span>
+                  <GoogleIcon size={18} />
+                  <span>Sign up with Google</span>
                 </button>
               </div>
 

@@ -68,6 +68,24 @@ export async function signInWithSupabase(email: string, password: string) {
 }
 
 /**
+ * Authentication: Sign in or Sign up with Google OAuth
+ */
+export async function signInWithGoogleOAuth() {
+  try {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : undefined,
+      },
+    });
+    if (error) return { data: null, error: error.message };
+    return { data, error: null };
+  } catch (err: any) {
+    return { data: null, error: err.message || 'Google OAuth failed' };
+  }
+}
+
+/**
  * Authentication: Sign up with Supabase Auth & auto-provision profile
  */
 export async function signUpWithSupabase(
