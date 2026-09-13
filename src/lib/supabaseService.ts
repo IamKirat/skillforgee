@@ -13,7 +13,7 @@ export interface SupabaseHealthStatus {
  * Check if the Supabase backend is reachable and responsive
  */
 export async function checkSupabaseHealth(): Promise<SupabaseHealthStatus> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://ubnzmurgbmwmkokroxdt.supabase.co';
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://tbqdivavhnzjwddtgkby.supabase.co';
   if (!isSupabaseConfigured) {
     return { connected: false, url, error: 'Missing Supabase credentials' };
   }
