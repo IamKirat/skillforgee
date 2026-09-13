@@ -128,14 +128,14 @@ export function VerificationBadge({
   return (
     <div
       onClick={onClick}
-      className={`inline-flex items-center rounded-full font-mono font-bold tracking-tight border transition-all duration-200 ${badgeConfig.gradient} ${badgeConfig.border} ${badgeConfig.text} ${badgeConfig.glow} ${sizeClasses.badge} ${
+      className={`inline-flex items-center shrink-0 whitespace-nowrap rounded-full font-mono font-bold tracking-tight border transition-all duration-200 ${badgeConfig.gradient} ${badgeConfig.border} ${badgeConfig.text} ${badgeConfig.glow} ${sizeClasses.badge} ${
         interactive || onClick ? 'cursor-pointer hover:scale-[1.02] active:scale-[0.98]' : ''
       } ${className}`}
       title={`${def.title}: ${def.tagline} (Trust Range: ${def.trustScoreRange[0]}-${def.trustScoreRange[1]})`}
     >
       <IconComponent size={sizeClasses.icon} className={`shrink-0 ${badgeConfig.iconColor}`} />
 
-      <div className="inline-flex items-center gap-1 font-sans">
+      <div className="inline-flex items-center gap-1 font-sans shrink-0">
         {showLevelNumber && (
           <span className="font-mono text-[10px] uppercase opacity-75 font-semibold">
             L{level}
@@ -146,7 +146,7 @@ export function VerificationBadge({
 
       {showScore && trustScore !== undefined && (
         <span
-          className={`font-mono font-bold rounded-full ${badgeConfig.pillBg} ${sizeClasses.score}`}
+          className={`font-mono font-bold shrink-0 whitespace-nowrap rounded-full ${badgeConfig.pillBg} ${sizeClasses.score}`}
         >
           {trustScore}/100
         </span>

@@ -70,12 +70,17 @@ export async function signInWithSupabase(email: string, password: string) {
 /**
  * Authentication: Sign in or Sign up with Google OAuth
  */
-export async function signInWithGoogleOAuth() {
+export async function signInWithGoogleOAuth(nextUrl: string = '/dashboard') {
   try {
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : undefined,
+        redirectTo: origin ? `${origin}/auth/callback?next=${encodeURIComponent(nextUrl)}` : undefined,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       },
     });
     if (error) return { data: null, error: error.message };

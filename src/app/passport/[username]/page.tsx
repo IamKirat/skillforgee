@@ -17,6 +17,7 @@ import {
   Lock,
   UserPlus,
   ArrowLeft,
+  ArrowRight,
   Sparkles,
   Layers,
   FileCheck2,
@@ -339,30 +340,30 @@ export default function PassportPage({ params }: PageProps) {
                   <div
                     key={lvl}
                     onClick={() => setActiveLevelFilter(prev => prev === lvl ? 'all' : lvl)}
-                    className={`p-3 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between space-y-1.5 ${
+                    className={`p-3 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between space-y-2 ${
                       isSelected
-                        ? 'ring-2 ring-[#635BFF] border-[#635BFF] bg-white shadow-subtle'
-                        : 'bg-white hover:bg-[#F8FAFC] border-[#E5E7EB]'
+                        ? 'ring-2 ring-[#635BFF] border-[#635BFF] bg-white dark:bg-[#0F172A] shadow-subtle'
+                        : 'bg-white dark:bg-[#0A0F1D] hover:bg-[#F8FAFC] dark:hover:bg-[#0F172A] border-[#E5E7EB] dark:border-[#1E293B]'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-mono font-bold text-[10px] text-[#6B7280]">
+                        <span className="font-mono font-bold text-[10px] text-[#6B7280] dark:text-[#94A3B8]">
                           LEVEL {lvl}
                         </span>
-                        <span className="font-mono text-[9px] font-bold px-1.5 py-0.2 rounded-md bg-[#F8FAFC] border border-[#E5E7EB] text-[#6B7280]">
+                        <span className="font-mono text-[9px] font-bold px-1.5 py-0.2 rounded-md bg-[#F8FAFC] dark:bg-[#0F172A] border border-[#E5E7EB] dark:border-[#1E293B] text-[#6B7280] dark:text-[#94A3B8]">
                           {def.trustScoreRange[0]}–{def.trustScoreRange[1]}
                         </span>
                       </div>
-                      <p className="font-bold text-[12px] text-[#0A0A0A] leading-tight truncate">
+                      <p className="font-bold text-[12px] text-[#0A0A0A] dark:text-[#F8FAFC] leading-tight truncate">
                         {def.badgeName}
                       </p>
-                      <p className="text-[10px] text-[#6B7280] line-clamp-2 mt-1 leading-snug">
+                      <p className="text-[10px] text-[#6B7280] dark:text-[#94A3B8] line-clamp-2 mt-1 leading-snug">
                         {def.tagline}
                       </p>
                     </div>
 
-                    <div className="pt-1.5 border-t border-[#E5E7EB]/60">
+                    <div className="pt-2 border-t border-[#E5E7EB]/60 dark:border-[#1E293B]">
                       <VerificationBadge level={lvl} size="xs" showLevelNumber={false} />
                     </div>
                   </div>
@@ -408,116 +409,116 @@ export default function PassportPage({ params }: PageProps) {
                     <div
                       key={skill.id}
                       onClick={() => setSelectedAuditReport(report)}
-                      className="p-5 rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#635BFF]/60 hover:shadow-card transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
+                      className="p-5 rounded-2xl bg-white dark:bg-[#0A0F1D] border border-[#E5E7EB] dark:border-[#1E293B] hover:border-[#635BFF]/60 dark:hover:border-[#635BFF]/60 hover:shadow-card transition-all cursor-pointer flex flex-col justify-between space-y-4 group h-full"
                     >
                       {/* Top Skill Header */}
-                      <div>
-                        <div className="flex items-start justify-between gap-2 mb-2">
-                          <div>
-                            <span className="text-[10px] font-mono uppercase text-[#6B7280] font-semibold block mb-0.5">
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-[#635BFF] bg-[#635BFF]/10 dark:bg-[#635BFF]/20 px-2 py-0.5 rounded-md font-semibold inline-block mb-1">
                               {report.category}
                             </span>
-                            <h3 className="text-xl font-extrabold text-[#0A0A0A] group-hover:text-[#635BFF] transition-colors">
+                            <h3 className="text-lg sm:text-xl font-extrabold text-[#0A0A0A] dark:text-[#F8FAFC] group-hover:text-[#635BFF] transition-colors truncate">
                               {report.skillName}
                             </h3>
                           </div>
 
                           <VerificationBadge
                             level={report.verificationLevel}
-                            size="sm"
-                            trustScore={report.trustScore}
+                            size="xs"
+                            trustScore={skill.trustScore ?? report.trustScore}
                             showScore={true}
+                            showLevelNumber={true}
                           />
                         </div>
 
-                        {/* Exact User-Specified Skill Passport Telemetry Block */}
-                        <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E5E7EB] mb-3 text-xs font-mono space-y-1.5">
-                          <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                            <span className="text-[#6B7280]">Skill:</span>
-                            <strong className="text-[#0A0A0A] font-bold">{report.skillName}</strong>
+                        {/* Structured 2x2 Telemetry Grid (Guaranteed No Collisions) */}
+                        <div className="p-3.5 rounded-xl bg-[#F8FAFC] dark:bg-[#0F172A] border border-[#E5E7EB] dark:border-[#1E293B] space-y-2.5">
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                              <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Trust Score</span>
+                              <div className="flex items-baseline gap-1 mt-0.5">
+                                <span className="text-sm font-bold font-mono text-[#635BFF] dark:text-[#818CF8]">
+                                  {skill.trustScore ?? report.trustScore}
+                                </span>
+                                <span className="text-[10px] font-mono text-[#9CA3AF]">/100</span>
+                              </div>
+                            </div>
+
+                            <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                              <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Confidence</span>
+                              <div className="flex items-baseline gap-1 mt-0.5">
+                                <span className="text-sm font-bold font-mono text-[#10B981]">
+                                  {skill.evidenceConfidence ?? report.evidenceConfidence ?? report.confidenceScore}%
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                              <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Projects</span>
+                              <div className="text-xs font-bold font-mono text-[#0A0A0A] dark:text-[#F8FAFC] mt-0.5 truncate">
+                                {skill.projectsFound ?? report.projectsFound ?? report.supportingProjects.length} Verified
+                              </div>
+                            </div>
+
+                            <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                              <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Repositories</span>
+                              <div className="text-xs font-bold font-mono text-[#0A0A0A] dark:text-[#F8FAFC] mt-0.5 truncate">
+                                {skill.repositoriesFound ?? report.repositoriesFound ?? report.supportingRepositories.length} Audited
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                            <span className="text-[#6B7280]">Trust Score:</span>
-                            <strong className="text-[#635BFF] font-bold">{skill.trustScore ?? report.trustScore}/100</strong>
-                          </div>
-                          <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                            <span className="text-[#6B7280]">Evidence Confidence:</span>
-                            <strong className="text-[#10B981] font-bold">{skill.evidenceConfidence ?? report.evidenceConfidence ?? report.confidenceScore}%</strong>
-                          </div>
-                          <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                            <span className="text-[#6B7280]">Projects Found:</span>
-                            <strong className="text-[#0A0A0A]">{skill.projectsFound ?? report.projectsFound ?? report.supportingProjects.length}</strong>
-                          </div>
-                          <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                            <span className="text-[#6B7280]">Repositories Found:</span>
-                            <strong className="text-[#0A0A0A]">{skill.repositoriesFound ?? report.repositoriesFound ?? report.supportingRepositories.length}</strong>
-                          </div>
-                          <div className="flex items-center justify-between py-0.5">
-                            <span className="text-[#6B7280]">Verification Level:</span>
-                            <strong className="font-bold text-[#0A0A0A]">
-                              {report.levelTitle}
-                            </strong>
+
+                          <div className="pt-2 border-t border-[#E5E7EB] dark:border-[#1E293B] flex items-center justify-between text-xs">
+                            <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8]">Verification Level:</span>
+                            <span className="font-mono font-bold text-[10px] text-[#0A0A0A] dark:text-[#F8FAFC] bg-white dark:bg-[#090D16] px-2 py-0.5 rounded border border-[#E5E7EB] dark:border-[#1E293B] truncate max-w-[170px]">
+                              L{report.verificationLevel} • {levelDef.badgeName}
+                            </span>
                           </div>
                         </div>
 
                         {/* Evidence Sources Checklist */}
-                        <div className="space-y-1.5 mb-3">
-                          <span className="text-[10px] font-mono uppercase text-[#6B7280] font-semibold block">
+                        <div className="space-y-1.5">
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#6B7280] dark:text-[#94A3B8] font-semibold block">
                             Evidence Sources:
                           </span>
-                          <div className="flex flex-wrap gap-1">
+                          <div className="flex flex-wrap gap-1.5">
                             {report.evidenceSources.slice(0, 4).map((s, idx) => (
                               <span
                                 key={idx}
-                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono ${
+                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-mono border ${
                                   s.verified
-                                    ? 'bg-[#10B981]/10 text-[#10B981] font-semibold'
-                                    : 'bg-slate-100 text-slate-400 line-through'
+                                    ? 'bg-[#10B981]/10 text-[#10B981] border-[#10B981]/25 font-semibold'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 line-through'
                                 }`}
                               >
                                 <span>{s.verified ? '✓' : '✗'}</span>
-                                <span>{s.source}</span>
+                                <span className="truncate max-w-[120px]">{s.source}</span>
                               </span>
                             ))}
                           </div>
                         </div>
 
                         {skill.isUnsupported && (
-                          <div className="p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-mono">
+                          <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-400 text-[11px] font-mono">
                             ⚠️ Unsupported Claim: 0 references in Resume or GitHub.
                           </div>
                         )}
                       </div>
 
-                      {/* Card Bottom Meta & CTA */}
-                      <div className="pt-3 border-t border-[#E5E7EB] space-y-2">
-                        <div className="flex items-center justify-between text-xs font-mono">
-                          <span className="text-[#6B7280]">Confidence:</span>
-                          <span className="font-bold text-[#10B981]">{report.confidenceScore}%</span>
-                        </div>
-
-                        <div className="flex items-center justify-between text-xs font-mono">
-                          <span className="text-[#6B7280]">Status:</span>
-                          <span
-                            className={`font-bold ${
-                              isVerified ? 'text-[#10B981]' : 'text-amber-700'
-                            }`}
-                          >
-                            {isVerified ? 'Verified' : 'Claimed'}
-                          </span>
-                        </div>
-
+                      {/* Card Bottom CTA */}
+                      <div className="pt-3 border-t border-[#E5E7EB] dark:border-[#1E293B]">
                         <button
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedAuditReport(report);
                           }}
-                          className="w-full inline-flex items-center justify-center gap-1.5 py-2 rounded-xl bg-[#F8FAFC] group-hover:bg-[#635BFF] group-hover:text-white text-[#635BFF] border border-[#E5E7EB] group-hover:border-[#635BFF] text-xs font-semibold transition-all cursor-pointer"
+                          className="w-full inline-flex items-center justify-center gap-1.5 py-2 rounded-xl bg-[#F8FAFC] dark:bg-[#0F172A] group-hover:bg-[#635BFF] group-hover:text-white text-[#635BFF] dark:text-[#818CF8] border border-[#E5E7EB] dark:border-[#1E293B] group-hover:border-[#635BFF] text-xs font-semibold transition-all cursor-pointer shadow-2xs"
                         >
                           <FileCheck2 size={13} />
-                          <span>Inspect Digital Evidence</span>
-                          <ArrowLeft size={11} className="rotate-180" />
+                          <span>Inspect ATS Proof Graph</span>
+                          <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                         </button>
                       </div>
                     </div>

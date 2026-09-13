@@ -636,38 +636,44 @@ export default function DashboardPage() {
                       </div>
                     )}
 
-                    {/* Exact User Requested Output Format */}
-                    <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E5E7EB] mb-4 text-xs font-mono space-y-1.5">
-                      <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                        <span className="text-[#6B7280]">Skill:</span>
-                        <strong className="text-[#0A0A0A] font-bold">{skill.name}</strong>
+                    {/* Structured Telemetry Grid */}
+                    <div className="p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-[#0F172A] border border-[#E5E7EB] dark:border-[#1E293B] mb-4 space-y-2.5">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                          <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Trust Score</span>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="text-sm font-bold font-mono text-[#635BFF] dark:text-[#818CF8]">{trustScore}</span>
+                            <span className="text-[10px] font-mono text-[#9CA3AF]">/100</span>
+                          </div>
+                        </div>
+
+                        <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                          <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Confidence</span>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="text-sm font-bold font-mono text-[#10B981]">{evidenceConfidence}%</span>
+                          </div>
+                        </div>
+
+                        <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                          <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Projects</span>
+                          <div className="text-xs font-bold font-mono text-[#0A0A0A] dark:text-[#F8FAFC] mt-0.5 truncate">
+                            {projectsFound} Verified
+                          </div>
+                        </div>
+
+                        <div className="p-2 rounded-lg bg-white dark:bg-[#090D16] border border-[#E5E7EB] dark:border-[#1E293B]">
+                          <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8] block">Repositories</span>
+                          <div className="text-xs font-bold font-mono text-[#0A0A0A] dark:text-[#F8FAFC] mt-0.5 truncate">
+                            {reposFound} Audited
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                        <span className="text-[#6B7280]">Trust Score:</span>
-                        <strong className="text-[#635BFF] font-bold">{trustScore}/100</strong>
-                      </div>
-                      <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                        <span className="text-[#6B7280]">Evidence Confidence:</span>
-                        <strong className="text-[#10B981] font-bold">{evidenceConfidence}%</strong>
-                      </div>
-                      <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                        <span className="text-[#6B7280]">Projects Found:</span>
-                        <strong className="text-[#0A0A0A]">{projectsFound}</strong>
-                      </div>
-                      <div className="flex items-center justify-between py-0.5 border-b border-[#E5E7EB]/70">
-                        <span className="text-[#6B7280]">Repositories Found:</span>
-                        <strong className="text-[#0A0A0A]">{reposFound}</strong>
-                      </div>
-                      <div className="flex items-center justify-between py-0.5">
-                        <span className="text-[#6B7280]">Verification Level:</span>
-                        <strong className={`font-bold ${
-                          level === 5 ? 'text-cyan-700' :
-                          level === 4 ? 'text-indigo-700' :
-                          level === 3 ? 'text-amber-700' :
-                          level === 2 ? 'text-slate-700' : 'text-amber-800'
-                        }`}>
-                          Level {level} — {def.badgeName}
-                        </strong>
+
+                      <div className="pt-2 border-t border-[#E5E7EB] dark:border-[#1E293B] flex items-center justify-between text-xs">
+                        <span className="text-[10px] font-mono text-[#6B7280] dark:text-[#94A3B8]">Verification Level:</span>
+                        <span className="font-mono font-bold text-[10px] text-[#0A0A0A] dark:text-[#F8FAFC] bg-white dark:bg-[#090D16] px-2 py-0.5 rounded border border-[#E5E7EB] dark:border-[#1E293B] truncate max-w-[170px]">
+                          L{level} • {def.badgeName}
+                        </span>
                       </div>
                     </div>
 
